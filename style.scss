@@ -1,0 +1,149 @@
+$top: 55px;
+
+
+
+button {
+    position: absolute;
+    z-index: 100;
+    right: 100px;
+    background: none;
+    border: none;
+    font-size: 50px;
+    color: tomato;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+        opacity: 0.5;
+    }
+
+    &.next {
+        top: 0px;
+    }
+
+    &.prev {
+        bottom: 0;
+    }
+}
+
+body {
+    background: #334;
+    height: 100vh;
+    font-family: arial;
+    display: flex;
+    align-items: center;
+}
+
+#slider_parent {
+    width: 100%;
+    height: 650px;
+    direction: rtl;
+    position: relative;
+    overflow: hidden;
+    * {
+        transition: all 1s ease;
+        }
+
+    .card {
+        width: 100%;
+        height: 150px;
+        position: absolute;
+        display: flex;
+        opacity: 0;
+        padding: 20px;
+
+        .profile {
+            width: 150px;
+            height: 150px;
+            border-radius: 100px;
+            background: #fff;
+            transform: scale(1);
+            object-fit: contain;
+            box-shadow: 3px 5px 10px #222;
+
+            img {
+                width: 100%;
+                min-height: 100%;
+                border-radius: 100px;
+            }
+        }
+
+        .text {
+            direction: ltr;
+            box-sizing: border-box;
+            text-align: left;
+            font-size: 20px;
+            padding: 25px 50px;
+            width: 50%;
+            height: 250px;
+            background: linear-gradient(190deg, #fff, #aaa);
+            border-radius: 300px / 70px;
+            line-height: 25px;
+            position: absolute;
+            display: none;
+            right: 220px;
+            top: calc(50% - 125px);
+
+            &:before {
+                font-family: homa;
+                content: ' ,, ';
+                font-size: 200px;
+                position: absolute;
+                bottom: -25px;
+                color: tomato;
+                line-height: 200px;
+            }
+        }
+    }
+}
+
+.post_inactive {
+    opacity: 0;
+    top: -150px + $top;
+    right: -150px;
+}
+
+.post_active {
+    opacity: 0.5 !important;
+    top: 0 + $top;
+    right: 0;
+
+    .text {
+        opacity: 0 !important;
+        display: grid !important;
+        place-items: center;
+    }
+}
+
+.active {
+    opacity: 1 !important;
+    top: 165px + $top;
+    right: 100px;
+
+    .profile {
+        transform: scale(1.2) !important;
+        border: 4px solid tomato;
+    }
+
+    .text {
+        opacity: 1 !important;
+        display: grid !important;
+        place-items: center;
+    }
+}
+.pre_active {
+    opacity: 0.5 !important;
+    top: 350px + $top;
+    right: 0;
+
+    .text {
+        opacity: 0 !important;
+        display: grid !important;
+        place-items: center;
+    }
+}
+.pre_inactive {
+    opacity: 0;
+    top: 500px + $top;
+    right: -150px;
+}

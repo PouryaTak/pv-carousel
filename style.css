@@ -1,0 +1,164 @@
+button {
+  position: absolute;
+  z-index: 100;
+  right: 100px;
+  background: none;
+  border: none;
+  font-size: 50px;
+  color: tomato;
+  cursor: pointer;
+  outline: none;
+}
+
+button:hover {
+  opacity: 0.5;
+}
+
+button.next {
+  top: 0px;
+}
+
+button.prev {
+  bottom: 0;
+}
+
+body {
+  background: #334;
+  height: 100vh;
+  font-family: arial;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#slider_parent {
+  width: 100%;
+  height: 650px;
+  direction: rtl;
+  position: relative;
+  overflow: hidden;
+}
+
+#slider_parent * {
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+#slider_parent .card {
+  width: 100%;
+  height: 150px;
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  opacity: 0;
+  padding: 20px;
+}
+
+#slider_parent .card .profile {
+  width: 150px;
+  height: 150px;
+  border-radius: 100px;
+  background: #fff;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  -o-object-fit: contain;
+     object-fit: contain;
+  -webkit-box-shadow: 3px 5px 10px #222;
+          box-shadow: 3px 5px 10px #222;
+}
+
+#slider_parent .card .profile img {
+  width: 100%;
+  min-height: 100%;
+  border-radius: 100px;
+}
+
+#slider_parent .card .text {
+  direction: ltr;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-align: left;
+  font-size: 20px;
+  padding: 25px 50px;
+  width: 50%;
+  height: 250px;
+  background: linear-gradient(190deg, #fff, #aaa);
+  border-radius: 300px / 70px;
+  line-height: 25px;
+  position: absolute;
+  display: none;
+  right: 220px;
+  top: calc(50% - 125px);
+}
+
+#slider_parent .card .text:before {
+  font-family: homa;
+  content: ' ,, ';
+  font-size: 200px;
+  position: absolute;
+  bottom: -25px;
+  color: tomato;
+  line-height: 200px;
+}
+
+.post_inactive {
+  opacity: 0;
+  top: -95px;
+  right: -150px;
+}
+
+.post_active {
+  opacity: 0.5 !important;
+  top: 55px;
+  right: 0;
+}
+
+.post_active .text {
+  opacity: 0 !important;
+  display: -ms-grid !important;
+  display: grid !important;
+  place-items: center;
+}
+
+.active {
+  opacity: 1 !important;
+  top: 220px;
+  right: 100px;
+}
+
+.active .profile {
+  -webkit-transform: scale(1.2) !important;
+          transform: scale(1.2) !important;
+  border: 4px solid tomato;
+}
+
+.active .text {
+  opacity: 1 !important;
+  display: -ms-grid !important;
+  display: grid !important;
+  place-items: center;
+}
+
+.pre_active {
+  opacity: 0.5 !important;
+  top: 405px;
+  right: 0;
+}
+
+.pre_active .text {
+  opacity: 0 !important;
+  display: -ms-grid !important;
+  display: grid !important;
+  place-items: center;
+}
+
+.pre_inactive {
+  opacity: 0;
+  top: 555px;
+  right: -150px;
+}
+/*# sourceMappingURL=style.css.map */
