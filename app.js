@@ -27,9 +27,9 @@ let n = 0;
 let $time = 3000;
 
 // Getting card list
-let cards;
-cards = document.querySelectorAll("#slider_parent .card");
+let cards = document.querySelectorAll("#slider_parent .card");
 let main = document.querySelector("#slider_parent");
+
 
 // check if there is enough item in container
 if (cards.length < 5) {
@@ -115,8 +115,8 @@ function eadge() {
 };
 
 function goNext() {
-    
-    anim_targ.forEach((i)=>{
+
+    anim_targ.forEach((i) => {
         i.style.transition = "all .3s ease"
     })
 
@@ -131,7 +131,7 @@ function goNext() {
     clearInterval(slideLoop)
 }
 function goPrev() {
-    anim_targ.forEach((i)=>{
+    anim_targ.forEach((i) => {
         i.style.transition = "all .3s ease"
     })
     debouncer()
@@ -144,6 +144,16 @@ function goPrev() {
     clearInterval(slideLoop)
 }
 
+// adding onClick event for card Items 
+cards.forEach((item, index) => {
+    item.addEventListener('click', () => {
+        n = index
+        debouncer()
+        counting();
+        clearInterval(slideLoop)
+    })
+})
+
 // running "counting()" function evey "$time" secoends to make a loop
 counting();
 let slideLoop = setInterval(eadge, $time);
@@ -151,7 +161,7 @@ let slideLoop = setInterval(eadge, $time);
 let debouncer = _.debounce(() => {
     counting();
     slideLoop = setInterval(eadge, $time);
-    anim_targ.forEach((i)=>{
+    anim_targ.forEach((i) => {
         i.style.transition = "all 1s ease"
     })
 }, 500);
