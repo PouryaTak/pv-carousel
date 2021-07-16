@@ -34,7 +34,7 @@ body {
     align-items: center;
 }
 
-#slider_parent {
+#slider_parent {    
     width: 100%;
     height: 650px;
     direction: rtl;
@@ -51,6 +51,7 @@ body {
         display: flex;
         opacity: 0;
         padding: 20px;
+        cursor: pointer;
 
         .profile {
             width: 150px;

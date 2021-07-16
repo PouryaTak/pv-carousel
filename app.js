@@ -153,11 +153,45 @@ cards.forEach((item, index) => {
         clearInterval(slideLoop)
     })
 })
+let dragMove;
+let dragArr = []
+cards.forEach((item, index) => {
+    item.addEventListener('dragover', (event) => {
+        dragArr.push(event.clientY)
+        // n = index
+        // debouncer()
+        // counting();
+        // clearInterval(slideLoop)
+    })
+    item.addEventListener('dragend', () => {
+        dragMove = dragArr[0] - dragArr[dragArr.length - 1]
+        dragArr = []
+        console.log(dragMove);
+        console.log(n)
+        if (dragMove > 0 && n < cards.length - 1) {
+            n++
+        } else if (dragMove > 0 && n >= cards.length - 1){
+n = 0
+        }
+         else if (dragMove < 0 && n !== 0) {
+            n--
+        }
+        else if (dragMove < 0 && n == 0) {
+            n = cards.length - 1;
+
+        } else {
+            return
+        }
+
+        debouncer()
+        counting();
+        clearInterval(slideLoop)
+    })
+})
 
 // running "counting()" function evey "$time" secoends to make a loop
 counting();
 let slideLoop = setInterval(eadge, $time);
-
 let debouncer = _.debounce(() => {
     counting();
     slideLoop = setInterval(eadge, $time);
