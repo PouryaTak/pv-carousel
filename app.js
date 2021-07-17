@@ -20,7 +20,7 @@
 */
 
 
-let anim_targ = document.querySelectorAll(".card")
+
 // setting initial number to start from. adding setter and getter to watch the value
 const initialNum = {
     num: 0,
@@ -40,33 +40,31 @@ const initialNum = {
 let $time = 3000;
 
 // Getting card list
-let cards = document.querySelectorAll("#slider_parent .card");
-let main = document.querySelector("#slider_parent");
-
+let cards = document.querySelectorAll("#pvc_container li");
+let main = document.querySelector("#pvc_container");
+let anim_targ = document.querySelectorAll(".pvc_item")
 
 // check if there is enough item in container
 if (cards.length < 5) {
     //if there is less than 5 item, then every item will be duplicated to reach the proper limit
-    let cards01 = document.querySelectorAll("#slider_parent li");
+    let cards01 = document.querySelectorAll("#pvc_container li");
     for (var i = 0; i < cards01.length; ++i) {
         main.appendChild(cards01[i].cloneNode(true));
     }
-    cards = document.querySelectorAll("#slider_parent li");
     cards.forEach(function (item) {
-        item.classList = "card";
+        item.classList = "pvc_item";
     });
 } else {
-    //set all divs to class ".card" only
+    //set all divs to class ".pvc_item" only
     cards.forEach(function (item) {
-        item.classList = "card";
+        item.classList = "pvc_item";
     });
 }
-
 //creating function for adding and removeing classes as a chain
 function counting() {
-    //set all divs to class ".card" only
+    //set all divs to class ".pvc_item" only
     cards.forEach(function (item) {
-        item.classList = "card";
+        item.classList = "pvc_item";
     });
 
     // placing ".post_inactive" class and removeing previously added one
