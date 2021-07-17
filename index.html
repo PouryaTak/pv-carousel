@@ -1,39 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
-</head>
-<body>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-
-    <ul id="slider_parent">
-        <button class="next" onclick="goNext()">+</button>
-        <button class="prev" onclick="goPrev()">-</button>
-        <li class="card" draggable="true">
-          <div class="profile"><img src="https://images.freeimages.com/images/large-previews/51f/profile-1439243.jpg"/></div>
-          <div class="text">PV-Carousel is based on CSS class shift</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pv-carousel use case</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display+SC&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap");
+      span {
+        font-family: "Playfair Display SC", serif;
+      }
+      * {
+        transition: all 1.3s cubic-bezier(0.5, 0, 0.6, 0.99);
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+      .main {
+        width: 100%;
+        height: 100vh;
+        background: rgba(97, 68, 53, 0.7);
+        overflow: hidden;
+        position: relative;
+      }
+      .main h1,
+      .main h2 {
+        color: #fff;
+        position: absolute;
+        z-index: 500;
+        left: 25px;
+        top: 10px;
+        font: 60px "Quicksand", sans-serif;
+        opacity: 0.7;
+      }
+      .main h2 {
+        font-size: 20px;
+        top: 25px;
+        left: auto;
+        right: 35px;
+      }
+      .main p {
+        width: 30%;
+        position: absolute;
+        z-index: 200;
+        line-height: 20px;
+        bottom: 50px;
+        left: 50px;
+        text-align: justify;
+        font-family: "Quicksand", sans-serif;
+        color: #fff;
+        opacity: 0.7;
+      }
+      .main p:before {
+        content: "";
+        width: 1px;
+        height: 100%;
+        background: #fff;
+        position: absolute;
+        left: -20px;
+      }
+      .main button {
+        all: unset;
+        position: absolute;
+        bottom: 20%;
+        left: 45%;
+        width: 100px;
+        height: 100px;
+        border-radius: 100px;
+        border: 1px solid rgba(250, 250, 250, 0.5);
+        text-align: center;
+        font-size: 50px;
+        color: rgba(250, 250, 250, 0.5);
+        cursor: pointer;
+        z-index: 1000;
+        transition: background 0.5s ease;
+        backdrop-filter: blur(0px);
+        transform: scale(1);
+      }
+      .main button:hover {
+        background: rgba(250, 250, 250, 0.07);
+        backdrop-filter: blur(2px);
+        transform: scale(0.99);
+      }
+      .main .img {
+        width: 35%;
+        height: 40%;
+        background: #000;
+        background-size: cover;
+      }
+      .main .img_01 {
+        background-image: url("https://kaboompics.com/download/49bf8161591fd29ee955570243d2acb8/medium");
+      }
+      .main .img_02 {
+        background-image: url("https://kaboompics.com/download/266dbd65c0e8267b75602be1bbd4a617/medium");
+      }
+      .main .img_03 {
+        background-image: url("https://kaboompics.com/download/74e381552cb9b6ee3e6d79c0911389be/medium");
+      }
+      .main .img_04 {
+        background-image: url("https://kaboompics.com/download/d3c5c2f2ee9f89c36307def136f0b741/medium");
+      }
+      .main .img_05 {
+        background-image: url("https://kaboompics.com/download/c8e5123631bfcd91e6c23253a66489db/medium");
+      }
+      .main ul#slider_parent li {
+        width: 100%;
+        height: 100vh;
+      }
+      .card {
+        position: absolute;
+      }
+      .card .img {
+        z-index: 100;
+      }
+      .card .back_img {
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0.7;
+      }
+      .card span {
+        opacity: 0;
+        z-index: 200;
+        font-size: 11vw;
+        position: absolute;
+        left: 70px;
+        color: #fff;
+      }
+      .pre_inactive .img {
+        position: absolute;
+        transform: rotate(-65deg) scale(1.7);
+        top: -600px;
+        right: 800px;
+        opacity: 0;
+        filter: blur(7px);
+        z-index: 600;
+      }
+      .pre_active .img {
+        position: absolute;
+        transform: rotate(-35deg) scale(1.5);
+        top: -250px;
+        right: 300px;
+        opacity: 1;
+        filter: blur(7px);
+        z-index: 500;
+      }
+      .pre_active span {
+        opacity: 0;
+        top: 500px;
+      }
+      .active .img {
+        position: absolute;
+        right: 50px;
+        top: 30%;
+        transform: rotate(0) scale(1);
+        z-index: 300;
+      }
+      .active span {
+        opacity: 1;
+        top: calc(50% - 70px);
+      }
+      .post_active .img {
+        position: absolute;
+        transform: rotate(25deg) scale(0.7);
+        top: 80%;
+        right: 200px;
+        opacity: 0.4;
+        filter: blur(7px);
+      }
+      .post_active span {
+        opacity: 0;
+        top: 30%;
+      }
+      .post_inactive .img {
+        position: absolute;
+        transform: rotate(65deg) scale(0.5);
+        top: 800px;
+        right: 300px;
+        opacity: 0;
+        filter: blur(7px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <h1>&#8756;</h1>
+      <h2>Ending</h2>
+      <p>
+        PV-Carousel is based on CSS class shift.<br/>
+        So you can set any style and transition you want.<br/>
+        The transition position and functions will adjusted by CSS only.<br/>
+        This will work on more than 2 items on the list.<br/>
+        Auto play, on click, next and prev buttons and drag to move options are available.<br/>
+        <a href="primary.html">Check the primary style</a>
+      </p>
+      <button onclick="goNext()">+</button>
+      <ul id="slider_parent">
+        <li class="card">
+          <div class="back_img"></div>
+          <div class="img img_01"></div>
+          <span>Camera</span>
         </li>
-        <li class="card" draggable="true">
-          <div class="profile"><img src="https://images.freeimages.com/images/large-previews/ab4/geye-1489406.jpg"/></div>
-          <div class="text">So you can set any style and transition you want</div>
+        <li class="card">
+          <div class="back_img"></div>
+          <div class="img img_02"></div>
+          <span>Beans</span>
         </li>
-        <li class="card" draggable="true">
-          <div class="profile"><img src="https://images.freeimages.com/images/large-previews/aa8/pissed-off-1359244.jpg"/></div>
-          <div class="text">The transition position and functions will adjusted by CSS only</div>
+        <li class="card">
+          <div class="back_img"></div>
+          <div class="img img_03"></div>
+          <span>Pinky</span>
         </li>
-        <li class="card" draggable="true">
-          <div class="profile"><img src="https://images.freeimages.com/images/large-previews/f0b/wink-1058779.jpg"/></div>
-          <div class="text">This will work on more than 2 items on the list.</div>
+        <li class="card">
+          <div class="back_img"></div>
+          <div class="img img_04"></div>
+          <span>Cookie</span>
         </li>
-        <li class="card" draggable="true">
-          <div class="profile"><img src="https://images.freeimages.com/images/large-previews/a02/kate-1436541.jpg"/></div>
-          <div class="text">Auto play, on click, next and prev buttons and drag to move are available</div>
+        <li class="card">
+          <div class="back_img"></div>
+          <div class="img img_05"></div>
+          <span>Sushi</span>
         </li>
       </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
     <script src="app.js"></script>
-</body>
+    <script>
+      const colors = ["#614435", "#677946", "#d6a4a4", "#574a41", "#b7b7b4"];
+      let back = document.querySelector(".active .back_img");
+      setInterval(() => {
+        back.style.background = colors[n];
+      }, $time);
+    </script>
+  </body>
 </html>
