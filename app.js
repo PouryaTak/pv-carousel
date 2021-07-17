@@ -21,8 +21,21 @@
 
 
 let anim_targ = document.querySelectorAll(".card")
-// setting initial number for starting from
-let n = 0;
+// setting initial number to start from. adding setter and getter to watch the value
+const initialNum = {
+    num: 0,
+    aListener: function(val) {},
+    set n(val) {
+      this.num = val;
+      this.aListener(val);
+    },
+    get n() {
+      return this.num;
+    },
+    registerListener: function(listener) {
+      this.aListener = listener;
+    }
+  }
 // setting time for slider to switch (in ms)
 let $time = 3000;
 
@@ -58,58 +71,58 @@ function counting() {
 
     // placing ".post_inactive" class and removeing previously added one
 
-    if (n == 0) {
+    if (initialNum.n == 0) {
         cards[cards.length - 2].classList.add("post_inactive");
         cards[cards.length - 2].classList.remove("post_active");
-    } else if (n == 1) {
+    } else if (initialNum.n == 1) {
         cards[cards.length - 1].classList.add("post_inactive");
         cards[cards.length - 1].classList.remove("post_active");
     } else {
-        cards[n - 2].classList.add("post_inactive");
-        cards[n - 2].classList.remove("post_active");
+        cards[initialNum.n - 2].classList.add("post_inactive");
+        cards[initialNum.n - 2].classList.remove("post_active");
     }
 
     // placing ".post_active" class and removeing previously added one
 
-    if (n == 0) {
+    if (initialNum.n == 0) {
         cards[cards.length - 1].classList.add("post_active");
         cards[cards.length - 1].classList.remove("active");
     } else {
-        cards[n - 1].classList.add("post_active");
-        cards[n - 1].classList.remove("active");
+        cards[initialNum.n - 1].classList.add("post_active");
+        cards[initialNum.n - 1].classList.remove("active");
     }
 
     // placing ".active" class and removeing previously added one
 
-    cards[n].classList.add("active");
-    cards[n].classList.remove("pre_active");
+    cards[initialNum.n].classList.add("active");
+    cards[initialNum.n].classList.remove("pre_active");
 
     // placing ".pre_active" class and removeing previously added one
 
-    if (n + 1 >= cards.length) {
+    if (initialNum.n + 1 >= cards.length) {
         cards[0].classList.add("pre_active");
         cards[0].classList.remove("pre_inactive");
     } else {
-        cards[n + 1].classList.add("pre_active");
-        cards[n + 1].classList.remove("pre_inactive");
+        cards[initialNum.n + 1].classList.add("pre_active");
+        cards[initialNum.n + 1].classList.remove("pre_inactive");
     }
 
     // placing ".pre_inactive" class and removeing previously added one
 
-    if (n + 2 > cards.length - 1) {
-        cards[n + 2 - cards.length].classList.add("pre_inactive");
-        cards[n + 2 - cards.length].classList.remove("post_inactive");
+    if (initialNum.n + 2 > cards.length - 1) {
+        cards[initialNum.n + 2 - cards.length].classList.add("pre_inactive");
+        cards[initialNum.n + 2 - cards.length].classList.remove("post_inactive");
     } else {
-        cards[n + 2].classList.add("pre_inactive");
-        cards[n + 2].classList.remove("post_inactive");
+        cards[initialNum.n + 2].classList.add("pre_inactive");
+        cards[initialNum.n + 2].classList.remove("post_inactive");
     }
 }
 
 function eadge() {
-    if (n >= cards.length - 1) {
-        n = 0;
+    if (initialNum.n >= cards.length - 1) {
+        initialNum.n = 0;
     } else {
-        n++;
+        initialNum.n++;
     }
     counting();
 };
@@ -122,10 +135,10 @@ function goNext() {
 
 
     debouncer()
-    if (n >= cards.length - 1) {
-        n = 0;
+    if (initialNum.n >= cards.length - 1) {
+        initialNum.n = 0;
     } else {
-        n++;
+        initialNum.n++;
     }
     counting();
     clearInterval(slideLoop)
@@ -135,10 +148,10 @@ function goPrev() {
         i.style.transition = "all .3s ease"
     })
     debouncer()
-    if (n == 0) {
-        n = cards.length - 1;
+    if (initialNum.n == 0) {
+        initialNum.n = cards.length - 1;
     } else {
-        n--;
+        initialNum.n--;
     }
     counting();
     clearInterval(slideLoop)
@@ -147,7 +160,7 @@ function goPrev() {
 // adding onClick event for card Items 
 cards.forEach((item, index) => {
     item.addEventListener('click', () => {
-        n = index
+        initialNum.n = index
         debouncer()
         counting();
         clearInterval(slideLoop)
@@ -167,17 +180,17 @@ cards.forEach((item, index) => {
         dragMove = dragArr[0] - dragArr[dragArr.length - 1]
         dragArr = []
         console.log(dragMove);
-        console.log(n)
-        if (dragMove > 0 && n < cards.length - 1) {
-            n++
-        } else if (dragMove > 0 && n >= cards.length - 1){
-n = 0
+        console.log(initialNum.n)
+        if (dragMove > 0 && initialNum.n < cards.length - 1) {
+            initialNum.n++
+        } else if (dragMove > 0 && initialNum.n >= cards.length - 1){
+initialNum.n = 0
         }
-         else if (dragMove < 0 && n !== 0) {
-            n--
+         else if (dragMove < 0 && initialNum.n !== 0) {
+            initialNum.n--
         }
-        else if (dragMove < 0 && n == 0) {
-            n = cards.length - 1;
+        else if (dragMove < 0 && initialNum.n == 0) {
+            initialNum.n = cards.length - 1;
 
         } else {
             return

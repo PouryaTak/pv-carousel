@@ -188,11 +188,12 @@
       <h1>&#8756;</h1>
       <h2>Ending</h2>
       <p>
-        PV-Carousel is based on CSS class shift.<br/>
-        So you can set any style and transition you want.<br/>
-        The transition position and functions will adjusted by CSS only.<br/>
-        This will work on more than 2 items on the list.<br/>
-        Auto play, on click, next and prev buttons and drag to move options are available.<br/>
+        PV-Carousel is based on CSS class shift.<br />
+        So you can set any style and transition you want.<br />
+        The transition position and functions will adjusted by CSS only.<br />
+        This will work on more than 2 items on the list.<br />
+        Auto play, on click, next and prev buttons and drag to move options are
+        available.<br />
         <a href="primary.html">Check the primary style</a>
       </p>
       <button onclick="goNext()">+</button>
@@ -229,9 +230,9 @@
     <script>
       const colors = ["#614435", "#677946", "#d6a4a4", "#574a41", "#b7b7b4"];
       let back = document.querySelector(".active .back_img");
-      setInterval(() => {
-        back.style.background = colors[n];
-      }, $time);
+      initialNum.registerListener(function (val) {
+        back.style.background = colors[initialNum.n];
+      });
     </script>
   </body>
 </html>
