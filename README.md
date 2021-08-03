@@ -23,7 +23,7 @@ The transition position and functions will adjusted by CSS only.. Classes are as
 ## How to use:
 
 
-After including these script tags to your html file:
+After downlaod and including these script tags to your html file:
 
 ```html
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
@@ -35,7 +35,7 @@ Then style **" .pvc_item "** in your css and set desired styles for **' .active 
 
 You can use **" goNext() "** and **" goPrev() "** for arrow buttons.
 
-For sync any outer functionality to carousel switch, use this watcher:
+To sync any outer functionality to carousel switch, use this watcher:
 
 ```js
 initialNum.registerListener((val) => {
