@@ -22,5 +22,7 @@ It uses css classes to make animation and positioning. so you can adjust the cla
 
 Create a ul with ID of "#pvc_container", and and add your Carousel items as li's.
 Include thes script tags to your html file:
+```
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
   <script src="app.js"></script>
+```
