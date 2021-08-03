@@ -9,11 +9,11 @@ It uses css classes to make animation and positioning. so you can adjust the cla
 
     .post_inactive
                                   ------------;
-                .post_active	    		  |
+                .post_active                  |
                                               |
-                            .active	          |---->    " use these classes as the visible part "
+                            .active           |---->    " use these classes as the visible part "
                                               |
-                .pre_active				      |
+                .pre_active                   |
                                   ------------!
     .pre_inactive
 
