@@ -234,12 +234,11 @@
         </li>
       </ul>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-    <script src="app.js"></script>
+    <script src="js/app.js"></script>
     <script>
       const colors = ["#614435", "#677946", "#d6a4a4", "#574a41", "#b7b7b4"];
       let back = document.querySelector(".active .back_img");
-      initialNum.registerListener(function (val) {
+      initialNum.switchListener(function (val) {
         back.style.background = colors[initialNum.n];
       });
     </script>

@@ -26,8 +26,7 @@ The transition position and functions will adjusted by CSS only.. Classes are as
 After downlaod and including these script tags to your html file:
 
 ```html
-  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-  <script src="app.js"></script>
+  <script src="js/app.js"></script>
 ```
 
 Create an ul tag with id of **_"#pvc_container"_** and add your Carousel items as li tag's.
@@ -38,7 +37,7 @@ You can use **" goNext() "** and **" goPrev() "** for arrow buttons.
 To sync any outer functionality to carousel switch, use this watcher:
 
 ```js
-initialNum.registerListener((val) => {
+initialNum.switchListener((val) => {
 /* your function */
 })
 ```

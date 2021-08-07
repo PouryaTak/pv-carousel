@@ -1,43 +1,42 @@
 
-//// this carousel needs atleast 3 or more items (li) to work properly
-/* This carousel uses classes to make animation and positioning. so you can adjust the classes to suit your needs. the classes are as bellow :
+const pvProps = {
+    // setting time for slider to switch (in ms)
+    $time: 3000,
+    // setting Auto play
+    $autoPlay: true,
+
+};
 
 
+//debounce function to control the intractivity behavior
+const debounce = (func, delay, { leading } = {}) => {
+    let timerId
 
-    .post_inactive
+    return (...args) => {
+        if (!timerId && leading) {
+            func(...args)
+        }
+        clearTimeout(timerId)
 
-                                    ------------;
-                .post_active	    			|
-                                                            |
-                                    .active			|---->    " visible part "
-                                                            |
-                .pre_active						|
-                                    ------------!
-                                	
-    .pre_inactive
-
- 
-*/
-
-
+        timerId = setTimeout(() => func(...args), delay)
+    }
+}
 
 // setting initial number to start from. adding setter and getter to watch the value
 const initialNum = {
     num: 0,
-    aListener: function(val) {},
+    aListener: function (val) { },
     set n(val) {
-      this.num = val;
-      this.aListener(val);
+        this.num = val;
+        this.aListener(val);
     },
     get n() {
-      return this.num;
+        return this.num;
     },
-    registerListener: function(listener) {
-      this.aListener = listener;
+    switchListener: function (listener) {
+        this.aListener = listener;
     }
-  }
-// setting time for slider to switch (in ms)
-let $time = 3000;
+}
 
 // Getting card list
 let cards = document.querySelectorAll("#pvc_container li");
@@ -116,7 +115,7 @@ function counting() {
     }
 }
 
-function eadge() {
+function initialNumLoop() {
     if (initialNum.n >= cards.length - 1) {
         initialNum.n = 0;
     } else {
@@ -126,12 +125,6 @@ function eadge() {
 };
 
 function goNext() {
-
-    anim_targ.forEach((i) => {
-        i.style.transition = "all .3s ease"
-    })
-
-
     debouncer()
     if (initialNum.n >= cards.length - 1) {
         initialNum.n = 0;
@@ -142,9 +135,6 @@ function goNext() {
     clearInterval(slideLoop)
 }
 function goPrev() {
-    anim_targ.forEach((i) => {
-        i.style.transition = "all .3s ease"
-    })
     debouncer()
     if (initialNum.n == 0) {
         initialNum.n = cards.length - 1;
@@ -155,7 +145,7 @@ function goPrev() {
     clearInterval(slideLoop)
 }
 
-// adding onClick event for card Items 
+// adding onClick event for card Items
 cards.forEach((item, index) => {
     item.addEventListener('click', () => {
         initialNum.n = index
@@ -164,49 +154,53 @@ cards.forEach((item, index) => {
         clearInterval(slideLoop)
     })
 })
-let dragMove;
-let dragArr = []
-cards.forEach((item, index) => {
-    item.addEventListener('dragover', (event) => {
-        dragArr.push(event.clientY)
-        // n = index
-        // debouncer()
-        // counting();
-        // clearInterval(slideLoop)
-    })
-    item.addEventListener('dragend', () => {
-        dragMove = dragArr[0] - dragArr[dragArr.length - 1]
-        dragArr = []
-        console.log(dragMove);
-        console.log(initialNum.n)
-        if (dragMove > 0 && initialNum.n < cards.length - 1) {
-            initialNum.n++
-        } else if (dragMove > 0 && initialNum.n >= cards.length - 1){
-initialNum.n = 0
-        }
-         else if (dragMove < 0 && initialNum.n !== 0) {
-            initialNum.n--
-        }
-        else if (dragMove < 0 && initialNum.n == 0) {
-            initialNum.n = cards.length - 1;
 
-        } else {
-            return
-        }
 
-        debouncer()
-        counting();
-        clearInterval(slideLoop)
-    })
-})
+// adding onDrag functionality
+// let dragMove;
+// let dragArr = []
+// cards.forEach((item, index) => {
+//     item.addEventListener('dragover', (event) => {
+//         dragArr.push(event.clientY)
+//     })
+//     item.addEventListener('dragend', () => {
+//         dragMove = dragArr[0] - dragArr[dragArr.length - 1]
+//         dragArr = []
+//         console.log(dragMove);
+//         console.log(initialNum.n)
+//         if (dragMove > 0 && initialNum.n < cards.length - 1) {
+//             initialNum.n++
+//         } else if (dragMove > 0 && initialNum.n >= cards.length - 1) {
+//             initialNum.n = 0
+//         }
+//         else if (dragMove < 0 && initialNum.n !== 0) {
+//             initialNum.n--
+//         }
+//         else if (dragMove < 0 && initialNum.n == 0) {
+//             initialNum.n = cards.length - 1;
+
+//         } else {
+//             return
+//         }
+
+//         debouncer()
+//         counting();
+//         clearInterval(slideLoop)
+//     })
+// })
 
 // running "counting()" function evey "$time" secoends to make a loop
 counting();
-let slideLoop = setInterval(eadge, $time);
-let debouncer = _.debounce(() => {
+let slideLoop = setInterval(() => {
+    if (pvProps.$autoPlay) {
+        initialNumLoop()
+    }
+}, pvProps.$time);
+let debouncer = debounce(() => {
     counting();
-    slideLoop = setInterval(eadge, $time);
-    anim_targ.forEach((i) => {
-        i.style.transition = "all 1s ease"
-    })
+    slideLoop = setInterval(() => {
+        if (pvProps.$autoPlay) {
+            initialNumLoop()
+        }
+    }, pvProps.$time);
 }, 500);
