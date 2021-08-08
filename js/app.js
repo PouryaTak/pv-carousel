@@ -5,6 +5,8 @@ const pvProps = {
     // setting Auto play
     $autoPlay: true,
 
+    $btnClickPause: false
+
 };
 
 
@@ -125,6 +127,9 @@ function initialNumLoop() {
 };
 
 function goNext() {
+    if(pvProps.$btnClickPause) {return}
+    pvProps.$btnClickPause = true
+    setTimeout(()=>{pvProps.$btnClickPause = false}, 1000)
     debouncer()
     if (initialNum.n >= cards.length - 1) {
         initialNum.n = 0;
@@ -135,6 +140,9 @@ function goNext() {
     clearInterval(slideLoop)
 }
 function goPrev() {
+    if(pvProps.$btnClickPause) {return}
+    pvProps.$btnClickPause = true
+    setTimeout(()=>{pvProps.$btnClickPause = false}, 500)
     debouncer()
     if (initialNum.n == 0) {
         initialNum.n = cards.length - 1;
