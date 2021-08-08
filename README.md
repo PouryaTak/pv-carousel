@@ -48,10 +48,14 @@ initialNum.switchListener((val) => {
 ```js
 
       const pvProps = {
-        // setting time for slider to switch (in ms)
-        $time: 3000,
-        // setting Auto play
-        $autoPlay: true,
-    };
+          // setting time for slider to switch (in ms)
+          $time: 3000,
+          // setting Auto play
+          $autoPlay: true,
+          // adds a pause to arrow btn functionality
+          $btnClickPause: false,
+          // adding Onclick event to slide cards, to make them switch
+          $clickable: false,
+      };
 
 ```

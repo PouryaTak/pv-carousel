@@ -4,8 +4,10 @@ const pvProps = {
     $time: 3000,
     // setting Auto play
     $autoPlay: true,
-
-    $btnClickPause: false
+    // adds a pause to arrow btn functionality
+    $btnClickPause: false,
+    // adding Onclick event to slide cards, to make them switch
+    $clickable: false,
 
 };
 
@@ -127,9 +129,9 @@ function initialNumLoop() {
 };
 
 function goNext() {
-    if(pvProps.$btnClickPause) {return}
+    if (pvProps.$btnClickPause) { return }
     pvProps.$btnClickPause = true
-    setTimeout(()=>{pvProps.$btnClickPause = false}, 1000)
+    setTimeout(() => { pvProps.$btnClickPause = false }, 1000)
     debouncer()
     if (initialNum.n >= cards.length - 1) {
         initialNum.n = 0;
@@ -140,9 +142,9 @@ function goNext() {
     clearInterval(slideLoop)
 }
 function goPrev() {
-    if(pvProps.$btnClickPause) {return}
+    if (pvProps.$btnClickPause) { return }
     pvProps.$btnClickPause = true
-    setTimeout(()=>{pvProps.$btnClickPause = false}, 500)
+    setTimeout(() => { pvProps.$btnClickPause = false }, 500)
     debouncer()
     if (initialNum.n == 0) {
         initialNum.n = cards.length - 1;
@@ -154,14 +156,16 @@ function goPrev() {
 }
 
 // adding onClick event for card Items
-cards.forEach((item, index) => {
-    item.addEventListener('click', () => {
-        initialNum.n = index
-        debouncer()
-        counting();
-        clearInterval(slideLoop)
+if (pvProps.$clickable) {
+    cards.forEach((item, index) => {
+        item.addEventListener('click', () => {
+            initialNum.n = index
+            debouncer()
+            counting();
+            clearInterval(slideLoop)
+        })
     })
-})
+}
 
 
 // adding onDrag functionality
