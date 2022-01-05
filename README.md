@@ -12,7 +12,7 @@ The transition position and functions will adjusted by CSS only.. Classes are as
                                   ------------;
                 .post_active                  |
                                               |
-                            .active           |---->    " Use these css classes for the visible part "
+                            .active           |---->    " Visible part "
                                               |
                 .pre_active                   |
                                   ------------!
@@ -54,7 +54,7 @@ initialNum.switchListener((val) => {
           $autoPlay: true,
           // adds a pause to arrow btn functionality
           $btnClickPause: false,
-          // adding Onclick event to slide cards, to make them switch
+          // enabling onclick for items to give that item .active class ( make the slider move )
           $clickable: false,
       };
 
