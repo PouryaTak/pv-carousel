@@ -23,13 +23,13 @@ The transition position and functions will adjusted by CSS only.. Classes are as
 ## How to use:
 
 
-- Download and including these script tags to your html file:
+1. Download and include this script tag to your html file:
 
 ```html
   <script src="js/app.js"></script>
 ```
 
-- Create an ul tag with id of **_"#pvc_container"_** and add your Carousel items as li tag's.
+2. Create an ul tag with id of **_"#pvc_container"_** and add your Carousel items as li tag's.
 Then style **" .pvc_item "** in your css and set desired styles for **' .active '**, **' .post_active '**, **' .post_inactive '**, **' .pre_active '** and **' .pre_inactive '** states.
 
 You can use **" goNext() "** and **" goPrev() "** for arrow buttons.
@@ -43,7 +43,7 @@ initialNum.switchListener((val) => {
 ```
 
 
-- In the app.js adjust these values if needed:
+3. In the app.js adjust these values if needed:
 
 ```js
 
