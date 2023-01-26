@@ -1,5 +1,5 @@
 # pv-carousel
-[See Example](https://pouriversal.github.io/pv-carousel/)
+[See Example](https://PouryaTak.github.io/pv-carousel/)
 
 ---
 PV-Carousel is based on CSS class shift so you can set any style and transition you want.
